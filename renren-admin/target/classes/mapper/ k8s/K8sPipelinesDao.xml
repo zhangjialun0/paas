@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.k8s.dao.K8sPipelinesDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.k8s.entity.K8sPipelinesEntity" id="k8sPipelinesMap">
+        <result property="id" column="id"/>
+        <result property="gitlabPipelinesId" column="gitlab_pipelines_id"/>
+        <result property="name" column="name"/>
+        <result property="projectId" column="project_id"/>
+        <result property="language" column="language"/>
+        <result property="buildType" column="build_type"/>
+        <result property="port" column="port"/>
+        <result property="branch" column="branch"/>
+        <result property="buildOrder" column="build_order"/>
+        <result property="dockerfileOrder" column="dockerfile_order"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.k8s.dao.K8sProjectDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.k8s.entity.K8sProjectEntity" id="k8sProjectMap">
+        <result property="id" column="id"/>
+        <result property="pathWithNamespace" column="path_with_namespace"/>
+        <result property="gitlabProjectId" column="gitlab_project_id"/>
+        <result property="description" column="description"/>
+        <result property="defaultBranch" column="default_branch"/>
+        <result property="sshUrlToRepo" column="ssh_url_to_repo"/>
+        <result property="httpUrlToRepo" column="http_url_to_repo"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+    </resultMap>
+
+
+</mapper>

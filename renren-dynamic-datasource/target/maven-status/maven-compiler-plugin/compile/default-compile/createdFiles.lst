@@ -1,0 +1,10 @@
+io/renren/commons/dynamic/datasource/config/DynamicContextHolder.class
+io/renren/commons/dynamic/datasource/annotation/DataSource.class
+META-INF/spring-configuration-metadata.json
+io/renren/commons/dynamic/datasource/config/DynamicDataSource.class
+io/renren/commons/dynamic/datasource/aspect/DataSourceAspect.class
+io/renren/commons/dynamic/datasource/config/DynamicContextHolder$1.class
+io/renren/commons/dynamic/datasource/config/DynamicDataSourceFactory.class
+io/renren/commons/dynamic/datasource/properties/DynamicDataSourceProperties.class
+io/renren/commons/dynamic/datasource/config/DynamicDataSourceConfig.class
+io/renren/commons/dynamic/datasource/properties/DataSourceProperties.class
