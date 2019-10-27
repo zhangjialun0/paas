@@ -12,5 +12,13 @@
 	<build>
 		<finalName>${project.artifactId}</finalName>
 	</build>
+    <dependencies>
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
