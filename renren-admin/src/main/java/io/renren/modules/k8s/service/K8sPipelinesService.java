@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentList;
+import io.fabric8.kubernetes.client.KubernetesClient;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.k8s.entity.K8sPipelinesEntity;
 
@@ -17,6 +18,8 @@ import java.util.Map;
  * @date 2019-10-20 19:11:33
  */
 public interface K8sPipelinesService extends IService<K8sPipelinesEntity> {
+
+    KubernetesClient test_rancher();
 
     PageUtils queryPage(Map<String, Object> params);
 

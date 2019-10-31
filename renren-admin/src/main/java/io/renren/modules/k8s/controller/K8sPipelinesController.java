@@ -6,6 +6,7 @@ import java.util.Map;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentList;
+import io.fabric8.kubernetes.client.KubernetesClient;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.k8s.entity.K8sPipelinesEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -100,13 +101,28 @@ public class K8sPipelinesController {
      */
 
     /**
+     *
+     * 测试
+     *
+     */
+    @RequestMapping("k8s/k8sRancherAction/test_rancher")
+    public R test_rancher(){
+        KubernetesClient client = k8sPipelinesService.test_rancher();
+        System.out.println(client);
+        return R.ok();
+//        if (client != null )
+//            return true;
+//        return false;
+    }
+
+    /**
      * 创建命名空间
      * @param name
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/createNamespace")
-    @RequiresPermissions("k8s:k8sRancherAction:createNamespace")
-    public R createNamespace(@NotNull String name){
+//    @RequiresPermissions("k8s:k8sRancherAction:createNamespace")
+    public R createNamespace(@RequestParam String name){
         Namespace namespace = k8sPipelinesService.createNamespace(name);
         return R.ok().put("namespace",namespace);
     }
@@ -116,7 +132,7 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/listNamespace")
-    @RequiresPermissions("k8s:k8sRancherAction:listNamespace")
+//    @RequiresPermissions("k8s:k8sRancherAction:listNamespace")
     public R listNamespace(){
         NamespaceList namespaceList = k8sPipelinesService.listNamespace();
         return R.ok().put("namespaceList",namespaceList);
@@ -129,8 +145,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/createNamespacePod")
-    @RequiresPermissions("k8s:k8sRancherAction:createNamespacePod")
-    public R createNamespacePod(@NotNull String namespace ,@NotNull String podName){
+//    @RequiresPermissions("k8s:k8sRancherAction:createNamespacePod")
+    public R createNamespacePod(@RequestParam String namespace ,@RequestParam String podName){
         Pod pod = k8sPipelinesService.CreatePod(namespace,podName);
         return R.ok().put("pod",pod);
     }
@@ -141,8 +157,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/listNamespacePod")
-    @RequiresPermissions("k8s:k8sRancherAction:listNamespacePod")
-    public R listNamespacePod(@NotNull String namespace){
+//    @RequiresPermissions("k8s:k8sRancherAction:listNamespacePod")
+    public R listNamespacePod(@RequestParam String namespace){
         PodList podList = k8sPipelinesService.ListPod(namespace);
         return R.ok().put("podList",podList);
     }
@@ -155,8 +171,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/createNamespaceService")
-    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceService")
-    public R createNamespaceService(@NotNull String namespace , @NotNull String serviceName, @NotNull String pipelinesId) throws Exception {
+//    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceService")
+    public R createNamespaceService(@RequestParam String namespace , @RequestParam String serviceName, @RequestParam String pipelinesId) throws Exception {
         Service service = k8sPipelinesService.CreateNamespaceService(namespace,serviceName,pipelinesId);
         return R.ok().put("service",service);
     }
@@ -167,8 +183,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/listNamespaceService")
-    @RequiresPermissions("k8s:k8sRancherAction:listNamespaceService")
-    public R listNamespaceService(@NotNull String namespace){
+//    @RequiresPermissions("k8s:k8sRancherAction:listNamespaceService")
+    public R listNamespaceService(@RequestParam String namespace){
         ServiceList serviceList=k8sPipelinesService.ListServise(namespace);
         return R.ok().put("listNamespaceService",serviceList);
     }
@@ -185,8 +201,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/createNamespaceDeployment")
-    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceDeployment")
-    public R createNamespaceDeployment(@NotNull String namespace, @NotNull String deploymentName , @NotNull String orgName,@NotNull String projectGroupName, @NotNull String projectName , @NotNull String branche ,  @NotNull String pipelinesId ) throws Exception {
+//    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceDeployment")
+    public R createNamespaceDeployment(@RequestParam String namespace, @RequestParam String deploymentName , @RequestParam String orgName,@RequestParam String projectGroupName, @RequestParam String projectName , @RequestParam String branche ,  @RequestParam String pipelinesId ) throws Exception {
         Deployment deployment=k8sPipelinesService.CreateNamespaceDeployment(namespace,deploymentName,orgName,projectGroupName,projectName,branche,pipelinesId);
         return R.ok().put("deployment",deployment);
     }
@@ -197,8 +213,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/listNamespaceDeployment")
-    @RequiresPermissions("k8s:k8sRancherAction:listNamespaceDeployment")
-    public R listNamespaceDeployment(@NotNull String namespace ){
+//    @RequiresPermissions("k8s:k8sRancherAction:listNamespaceDeployment")
+    public R listNamespaceDeployment(@RequestParam String namespace ){
         DeploymentList deploymentList=k8sPipelinesService.ListDeployment(namespace);
         return R.ok().put("deploymentList",deploymentList);
     }
@@ -208,8 +224,8 @@ public class K8sPipelinesController {
      * @param namespace
      */
     @RequestMapping("k8s/k8sRancherAction/moveNamespaceToProject")
-    @RequiresPermissions("k8s:k8sRancherAction:moveNamespaceToProject")
-    public void moveNamespaceToProject(@NotNull String namespace ){
+//    @RequiresPermissions("k8s:k8sRancherAction:moveNamespaceToProject")
+    public void moveNamespaceToProject(@RequestParam String namespace ){
         k8sPipelinesService.moveNamespaceToProject(namespace);
     }
 
@@ -224,8 +240,8 @@ public class K8sPipelinesController {
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/runProjectGroupAndAutoConfiguration")
-    @RequiresPermissions("k8s:k8sRancherAction:runProjectGroupAndAutoConfiguration")
-    public R runProjectGroupAndAutoConfiguration(@NotNull String orgName , @NotNull String proGroupName , @NotNull String projectName , @NotNull String branches , @NotNull String projectGroupId , @NotNull String pipelineId) throws Exception {
+//    @RequiresPermissions("k8s:k8sRancherAction:runProjectGroupAndAutoConfiguration")
+    public R runProjectGroupAndAutoConfiguration(@RequestParam String orgName , @RequestParam String proGroupName , @RequestParam String projectName , @RequestParam String branches , @RequestParam String projectGroupId , @RequestParam String pipelineId) throws Exception {
         String name = k8sPipelinesService.runProjectGroupAndAutoConfiguration(orgName, proGroupName, projectName, branches, projectGroupId, pipelineId);
         return R.ok().put("name",name);
     }
@@ -243,8 +259,8 @@ public class K8sPipelinesController {
      */
 
     @RequestMapping("k8s/k8sRancherAction/repeatDeployment")
-    @RequiresPermissions("k8s:k8sRancherAction:repeatDeployment")
-    public R repeatDeployment( @NotNull String namespace,  @NotNull String deploymentName , @NotNull String orgName, @NotNull String projectGroupName,  @NotNull String projectName , @NotNull String branches , @NotNull String pipelinesId ) throws Exception {
+//    @RequiresPermissions("k8s:k8sRancherAction:repeatDeployment")
+    public R repeatDeployment( @RequestParam String namespace,  @RequestParam String deploymentName , @RequestParam String orgName, @RequestParam String projectGroupName,  @RequestParam String projectName , @RequestParam String branches , @RequestParam String pipelinesId ) throws Exception {
         Deployment deployment=k8sPipelinesService.repeatDeployment(namespace,deploymentName,orgName,projectGroupName,projectName,branches,pipelinesId);
         return R.ok().put("成功重新部署",deployment);
     }

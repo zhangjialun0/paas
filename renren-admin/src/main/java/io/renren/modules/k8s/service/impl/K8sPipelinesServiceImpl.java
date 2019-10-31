@@ -1,6 +1,5 @@
 package io.renren.modules.k8s.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentBuilder;
@@ -30,6 +29,11 @@ import sun.util.locale.LocaleSyntaxException;
 public class K8sPipelinesServiceImpl extends ServiceImpl<K8sPipelinesDao, K8sPipelinesEntity> implements K8sPipelinesService {
 
     @Override
+    public KubernetesClient test_rancher() {
+        return K8sFactory.getKubernetesClient();
+    }
+
+    @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<K8sPipelinesEntity> page = this.page(
                 new Query<K8sPipelinesEntity>().getPage(params),
@@ -41,18 +45,19 @@ public class K8sPipelinesServiceImpl extends ServiceImpl<K8sPipelinesDao, K8sPip
 
     @Override
     public Namespace createNamespace(String name) {
-        try(final KubernetesClient client = K8sFactory.getKubernetesClient()){
+        try( final KubernetesClient client = K8sFactory.getKubernetesClient() ){
             Namespace namespace = new NamespaceBuilder().withApiVersion("v1")
                     .withKind("Namespace")
                     .withNewMetadata()
-//                    .withNamespace(name)
+//                    .withNamespace("cloudcarex")
                     .withName(name)
                     .addToLabels("name",name)
                     .withClusterName("cloudcarex")
                     .endMetadata()
                     .build();
 
-            namespace = K8sFactory.CreateNamespace(K8sFactory.getKubernetesClient(),namespace);
+//            Namespace namespace1 = K8sFactory.CreateNamespace(K8sFactory.getKubernetesClient(),namespace);
+            Namespace namespace1 = client.namespaces().create(namespace);
 
             //创建部署前需要先创建镜像凭证
             client.secrets().inNamespace(name).create(new SecretBuilder()
@@ -67,7 +72,7 @@ public class K8sPipelinesServiceImpl extends ServiceImpl<K8sPipelinesDao, K8sPip
                     .addToData(".dockerconfigjson","eyJhdXRocyI6eyIxNzIuMTYuMTY1LjEwODo1MDAwIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6InNsaWFuMTIzIiwiYXV0aCI6IllXUnRhVzQ2YzJ4cFlXNHhNak09In19fQ==")
                     .build());
 
-            return namespace;
+            return namespace1;
         }
     }
 
