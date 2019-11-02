@@ -173,7 +173,7 @@ public class K8sPipelinesController {
     @RequestMapping("k8s/k8sRancherAction/createNamespaceService")
 //    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceService")
     public R createNamespaceService(@RequestParam String namespace , @RequestParam String serviceName, @RequestParam String pipelinesId) throws Exception {
-        Service service = k8sPipelinesService.CreateNamespaceService(namespace,serviceName,pipelinesId);
+        Service service = k8sPipelinesService.CreateNamespaceService(namespace,serviceName);
         return R.ok().put("service",service);
     }
 
@@ -193,17 +193,14 @@ public class K8sPipelinesController {
      * 创建部署
      * @param namespace
      * @param deploymentName
-     * @param orgName
-     * @param projectGroupName
      * @param projectName
      * @param branche
-     * @param pipelinesId
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/createNamespaceDeployment")
 //    @RequiresPermissions("k8s:k8sRancherAction:createNamespaceDeployment")
-    public R createNamespaceDeployment(@RequestParam String namespace, @RequestParam String deploymentName , @RequestParam String orgName,@RequestParam String projectGroupName, @RequestParam String projectName , @RequestParam String branche ,  @RequestParam String pipelinesId ) throws Exception {
-        Deployment deployment=k8sPipelinesService.CreateNamespaceDeployment(namespace,deploymentName,orgName,projectGroupName,projectName,branche,pipelinesId);
+    public R createNamespaceDeployment(@RequestParam String namespace, @RequestParam String deploymentName , @RequestParam String projectName , @RequestParam String branche ) throws Exception {
+        Deployment deployment=k8sPipelinesService.CreateNamespaceDeployment(namespace,deploymentName,projectName,branche);
         return R.ok().put("deployment",deployment);
     }
 
@@ -231,18 +228,14 @@ public class K8sPipelinesController {
 
     /**
      * 自动化部署
-     * @param orgName
-     * @param proGroupName
      * @param projectName
      * @param branches
-     * @param projectGroupId
-     * @param pipelineId
      * @return
      */
     @RequestMapping("k8s/k8sRancherAction/runProjectGroupAndAutoConfiguration")
 //    @RequiresPermissions("k8s:k8sRancherAction:runProjectGroupAndAutoConfiguration")
-    public R runProjectGroupAndAutoConfiguration(@RequestParam String orgName , @RequestParam String proGroupName , @RequestParam String projectName , @RequestParam String branches , @RequestParam String projectGroupId , @RequestParam String pipelineId) throws Exception {
-        String name = k8sPipelinesService.runProjectGroupAndAutoConfiguration(orgName, proGroupName, projectName, branches, projectGroupId, pipelineId);
+    public R runProjectGroupAndAutoConfiguration( @RequestParam String projectName , @RequestParam String branches ) throws Exception {
+        String name = k8sPipelinesService.runProjectGroupAndAutoConfiguration( projectName, branches);
         return R.ok().put("name",name);
     }
 
@@ -250,18 +243,15 @@ public class K8sPipelinesController {
      * 重新部署
      * @param namespace
      * @param deploymentName
-     * @param orgName
-     * @param projectGroupName
      * @param projectName
      * @param branches
-     * @param pipelinesId
      * @return
      */
 
     @RequestMapping("k8s/k8sRancherAction/repeatDeployment")
 //    @RequiresPermissions("k8s:k8sRancherAction:repeatDeployment")
-    public R repeatDeployment( @RequestParam String namespace,  @RequestParam String deploymentName , @RequestParam String orgName, @RequestParam String projectGroupName,  @RequestParam String projectName , @RequestParam String branches , @RequestParam String pipelinesId ) throws Exception {
-        Deployment deployment=k8sPipelinesService.repeatDeployment(namespace,deploymentName,orgName,projectGroupName,projectName,branches,pipelinesId);
+    public R repeatDeployment( @RequestParam String namespace,  @RequestParam String deploymentName , @RequestParam String projectName , @RequestParam String branches ) throws Exception {
+        Deployment deployment=k8sPipelinesService.repeatDeployment(namespace,deploymentName,projectName,branches);
         return R.ok().put("成功重新部署",deployment);
     }
 

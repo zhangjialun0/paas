@@ -31,18 +31,18 @@ public interface K8sPipelinesService extends IService<K8sPipelinesEntity> {
 
     PodList ListPod(String namespace);
 
-    Service CreateNamespaceService(String namespace, String serviceName, String pipelinesId) throws Exception;
+    Service CreateNamespaceService(String namespace, String serviceName) throws Exception;
 
     ServiceList ListServise(String namespace);
 
-    Deployment CreateNamespaceDeployment(String namespace, String deploymentName, String orgName, String projectGroupName, String projectName, String branche, String pipelinesId) throws Exception;
+    Deployment CreateNamespaceDeployment(String namespace, String deploymentName,  String projectName, String branche) throws Exception;
 
     DeploymentList ListDeployment(String namespace);
 
     void moveNamespaceToProject(String namespace);
 
-    String runProjectGroupAndAutoConfiguration(String orgName, String proGroupName, String projectName, String branches, String projectGroupId, String pipelineId) throws Exception;
+    String runProjectGroupAndAutoConfiguration( String projectName, String branches) throws Exception;
 
-    Deployment repeatDeployment(String namespace, String deploymentName, String orgName, String projectGroupName, String projectName, String branches, String pipelinesId) throws Exception;
+    Deployment repeatDeployment(String namespace, String deploymentName, String projectName, String branches) throws Exception;
 }
 
