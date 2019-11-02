@@ -20,5 +20,7 @@ public interface K8sProjectService extends IService<K8sProjectEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     boolean save(K8sProjectEntity k8sProject,SysUserEntity userEntity );
+
+    void createTwoFiles(K8sProjectEntity k8sProjectEntity, SysUserEntity sysUserEntity);
 }
 

@@ -93,4 +93,17 @@ public class K8sProjectController extends AbstractController{
         return R.ok();
     }
 
+    /**
+     * 构建
+     */
+    @RequestMapping("/build")
+//    @RequiresPermissions("k8s:k8sproject:build")
+    public R build(@RequestBody K8sProjectEntity k8sProjectEntity){
+        SysUserEntity sysUserEntity = this.getUser();
+        k8sProjectService.createTwoFiles(k8sProjectEntity,sysUserEntity);
+
+        return R.ok();
+    }
+
+
 }

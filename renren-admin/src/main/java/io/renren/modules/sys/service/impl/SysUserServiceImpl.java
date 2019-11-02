@@ -95,8 +95,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 			gitlabUser = gitLabApi.getUserApi().createUser(gitlabUser,password,false);
 			gitLabApi.sudo(gitlabUser.getUsername());
+
 			Group group = gitLabApi.getGroupApi().addGroup("PaasProject","java","", Visibility.PRIVATE,null,null,null);
-		user.setCreateTime(new Date());
+			gitLabApi.getGroupApi().createVariable(group.getId(), "CI_REGISTRY", "http://172.16.165.108:5000", false);
+			gitLabApi.getGroupApi().createVariable(group.getId(), "CI_REGISTRY_PASSWORD", "slian123", false);
+			gitLabApi.getGroupApi().createVariable(group.getId(), "CI_REGISTRY_PATH", "172.16.165.108:5000/cloudcarex_user_registry/PaasProject", false);
+			gitLabApi.getGroupApi().createVariable(group.getId(), "CI_REGISTRY_USER", "admin", false);
+			user.setCreateTime(new Date());
 		//sha256加密
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setSalt(salt);
