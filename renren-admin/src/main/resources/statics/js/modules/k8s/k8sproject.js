@@ -11,7 +11,12 @@ $(function () {
 			{ label: 'ssh地址', name: 'sshUrlToRepo', index: 'ssh_url_to_repo', width: 80 }, 			
 			{ label: 'http地址', name: 'httpUrlToRepo', index: 'http_url_to_repo', width: 80 }, 			
 			{ label: '项目名', name: 'name', index: 'name', width: 80 }, 			
-			{ label: '', name: 'path', index: 'path', width: 80 }			
+			{ label: '', name: 'path', index: 'path', width: 80 },
+            { label: '操作', name: '操作', index: '', width: 80 ,
+                formatter: function (cellvalue, options, rowObject) {
+                    debugger;
+                    return "<button onclick='builed()'>构建</button><button>部署</button>"}
+            }
         ],
 		viewrecords: true,
         height: 385,
@@ -39,7 +44,25 @@ $(function () {
         }
     });
 });
+function builed(e){
+    debugger
+    var url = "k8s/k8sproject/builds";
+    $.ajax({
+        type: "POST",
+        url: baseURL + url,
+        contentType: "application/json",
+        data: e,
+        success: function(r){
+            if(r.code === 0){
+                layer.msg("操作成功", {icon: 1});
+                vm.reload();
 
+            }else{
+                layer.alert(r.msg);
+            }
+        }
+    });
+}
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
