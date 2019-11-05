@@ -198,7 +198,7 @@ public class K8sPipelinesServiceImpl extends ServiceImpl<K8sPipelinesDao, K8sPip
                         .withName(deploymentName)
 //            docker pull 172.16.165.108:5000/cloudcarex_user_registry/projectpath:master
 //            docker pull 172.16.165.108:5000/cloudcarex_user_registry/w/g4/p4:master
-                        .withImage("172.16.165.108:5000/cloudcarex_user_registry/"+"/"+"PaasProject"+"/"+projectName+":"+branches)
+                        .withImage("172.16.165.108:5000/cloudcarex_user_registry/"+"paasproject"+"/"+projectName+":"+branches)
                         .withImagePullPolicy("Always")
                         .withPorts(new ContainerPort(8080,null,null,"public","TCP"))
 //                        Integer.valueOf(pipelines.getPort()
@@ -412,7 +412,7 @@ public class K8sPipelinesServiceImpl extends ServiceImpl<K8sPipelinesDao, K8sPip
                         .withName(deploymentName)
 //            docker pull 172.16.165.108:5000/cloudcarex_user_registry/projectpath:master
 //            docker pull 172.16.165.108:5000/cloudcarex_user_registry/w/g4/p4:master
-                        .withImage("172.16.165.108:5000/cloudcarex_user_registry/"+"PaasProject"+"/"+projectNameEnglish+":"+branches)
+                        .withImage("172.16.165.108:5000/cloudcarex_user_registry/"+"paasproject"+"/"+projectNameEnglish+":"+branches)
                         .withImagePullPolicy("Always")
                         .withPorts(new ContainerPort(8080,null,null,"public","TCP"))
                         .endContainer()

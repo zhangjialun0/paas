@@ -79,9 +79,11 @@ public class K8sProjectServiceImpl extends ServiceImpl<K8sProjectDao, K8sProject
 
             k8sProject.setGitlabProjectId(project.getId());
             k8sProject.setDefaultBranch(project.getDefaultBranch());
-            k8sProject.setHttpUrlToRepo(project.getHttpUrlToRepo());
+            String internalUrl="172.16.165.107";
+            String externalUrl="121.199.40.157";
+            k8sProject.setHttpUrlToRepo(project.getHttpUrlToRepo().replaceFirst(internalUrl,externalUrl));
             k8sProject.setPathWithNamespace(project.getPathWithNamespace());
-            k8sProject.setSshUrlToRepo(project.getSshUrlToRepo());
+            k8sProject.setSshUrlToRepo(project.getSshUrlToRepo().replaceFirst(internalUrl,externalUrl));
 
             this.save(k8sProject);
         } catch (GitLabApiException e) {
@@ -100,13 +102,17 @@ public class K8sProjectServiceImpl extends ServiceImpl<K8sProjectDao, K8sProject
                 "ADD ./target /usr/local/tomcat/webapps/ \n" +
                 "ENV JAVA_OPTIONS \"-Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN -Duser.timezone=UTC\" \n" +
                 "EXPOSE 8080";
-        String gitlabYMl ="job_build:\n" +
+        String gitlabYMl ="stages:\n" +
+                "  - build\n" +
+                "  - release\n" +
+                "  \n"+
+                "job_build:\n" +
                 "  image: maven:latest\n" +
                 "  stage: build\n" +
                 "  script:\n" +
                 "    - mvn clean install -e -U\n" +
                 "  artifacts:\n" +
-                "    name: "+project.getName()+"\n" +
+                "    name: \""+project.getName()+"\"\n" +
                 "    untracked: true\n" +
                 "    expire_in: 60 mins\n" +
                 "    paths:\n" +

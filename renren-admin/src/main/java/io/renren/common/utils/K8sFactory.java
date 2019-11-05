@@ -43,13 +43,6 @@ public class K8sFactory {
             e.printStackTrace();
         }
 
-//        URL kubeConfig = contextClassLoader.getResource("./conf/kubeConfig");
-//        String kubeConfigPath = kubeConfig.getPath();
-
-//        File file = new File(kubeConfigPath);
-//        content = FileUtils.readFileToString(file);
-
-
         KubernetesClient client = new DefaultKubernetesClient(config);
 
         return client;
